@@ -59,7 +59,7 @@ Hey ! I've been working on a project that I think many of you might find useful 
 
 ```bash
 # Clone the repo
-git clone <your-repo-url>
+git clone https://github.com/s0raLin/linux-config-manager.git
 cd linux-config-manager
 
 
