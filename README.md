@@ -63,7 +63,7 @@ Linux 配置管理器提供了一个类似 VSCode 的界面，让你可以轻松
 
 1. **克隆项目**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/s0raLin/linux-config-manager.git
    cd linux-config-manager
    ```
 
