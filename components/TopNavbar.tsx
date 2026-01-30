@@ -66,9 +66,12 @@ const TopNavbar: React.FC = () => {
                   </span>
                 </>
               )}
-              {isLoading && (
-                <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-              )}
+              {/* 为加载指示器预留固定空间 */}
+              <div className="w-3 h-3 flex items-center justify-center">
+                {isLoading && (
+                  <div className="w-3 h-3 border border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                )}
+              </div>
             </div>
           </div>
         </div>

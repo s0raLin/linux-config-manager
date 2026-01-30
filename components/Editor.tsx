@@ -158,7 +158,7 @@ const Editor: React.FC = () => {
           <button 
             onClick={handleSave}
             disabled={!isModified || isLoading}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ml-2 ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ml-2 min-w-[100px] ${
               isModified && !isLoading
                 ? 'bg-orange-600 hover:bg-orange-700 text-white' 
                 : 'bg-slate-700 text-slate-400 cursor-not-allowed'
@@ -166,7 +166,9 @@ const Editor: React.FC = () => {
             title={isModified ? "保存到系统" : "无更改"}
           >
             <Save size={14} />
-            <span>{isLoading ? '保存中...' : isModified ? '保存到系统' : '已保存'}</span>
+            <span className="whitespace-nowrap">
+              {isLoading ? '保存中...' : isModified ? '保存到系统' : '已保存'}
+            </span>
           </button>
         </div>
       </div>

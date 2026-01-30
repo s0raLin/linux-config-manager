@@ -33,22 +33,25 @@ const StatusBar: React.FC = () => {
         <span className="hidden sm:inline">{systemInfo?.os || 'Linux'}</span>
         <span>{systemInfo?.shell?.split('/').pop() || 'Bash'}</span>
         
-        {isLoading ? (
-          <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-            <span>处理中...</span>
-          </div>
-        ) : error ? (
-          <div className="flex items-center gap-1 text-red-300">
-            <WifiOff size={12} />
-            <span>连接失败</span>
-          </div>
-        ) : (
-          <div className="flex items-center gap-1">
-            <CheckCircle size={12} />
-            <span>已连接</span>
-          </div>
-        )}
+        {/* 为状态指示器预留固定空间 */}
+        <div className="flex items-center gap-1 min-w-[80px]">
+          {isLoading ? (
+            <>
+              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+              <span>处理中...</span>
+            </>
+          ) : error ? (
+            <>
+              <WifiOff size={12} />
+              <span>连接失败</span>
+            </>
+          ) : (
+            <>
+              <CheckCircle size={12} />
+              <span>已连接</span>
+            </>
+          )}
+        </div>
         
         <div className="flex items-center gap-1">
           <span className="w-2 h-2 bg-green-400 rounded-full"></span>

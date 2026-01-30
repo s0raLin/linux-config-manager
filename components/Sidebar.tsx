@@ -98,7 +98,7 @@ const Sidebar: React.FC = () => {
 
       <div className="flex-1 p-4 overflow-y-auto">
         {isLoading && categories.length === 0 ? (
-          <div className="flex items-center justify-center py-8">
+          <div className="flex items-center justify-center py-8 min-h-[200px]">
             <div className="text-sm text-slate-500">加载中...</div>
           </div>
         ) : (
