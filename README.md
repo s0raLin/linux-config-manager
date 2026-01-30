@@ -139,21 +139,8 @@ go build -o config-manager main.go
 - 错误提示
 - 连接状态监控
 
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request 来改进这个项目！
-
-### 开发指南
-
-1. Fork 项目
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
-
-## 📄 许可证
-
-MIT License
+### 项目演示
+![Uploading image.png…]()
 
 ## 🔮 未来规划
 
