@@ -20,10 +20,13 @@ const SyntaxHighlightedEditor: React.FC<SyntaxHighlightedEditorProps> = ({
   const highlighterRef = useRef<HTMLDivElement>(null);
   const [lineCount, setLineCount] = useState(1);
 
+  // 处理内容，确保行尾一致性
+  const processedContent = content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
   useEffect(() => {
-    const lines = content.split('\n').length;
+    const lines = processedContent.split('\n').length;
     setLineCount(lines);
-  }, [content]);
+  }, [processedContent]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!isReadOnly) {
@@ -38,7 +41,7 @@ const SyntaxHighlightedEditor: React.FC<SyntaxHighlightedEditorProps> = ({
     }
   };
 
-  // 语言映射，将我们的语言标识符映射到 Prism 支持的语言
+  // 语言映射
   const getLanguageForHighlighter = (lang: string): string => {
     const languageMap: { [key: string]: string } = {
       'bash': 'bash',
@@ -55,29 +58,45 @@ const SyntaxHighlightedEditor: React.FC<SyntaxHighlightedEditorProps> = ({
 
   const highlighterLanguage = getLanguageForHighlighter(language);
 
-  // 统一的样式配置
-  const editorStyles = {
+  // 精确的字体设置 - 确保两个元素完全一致
+  const fontSettings = {
+    fontFamily: 'Consolas, Monaco, "Courier New", monospace',
     fontSize: '14px',
-    lineHeight: '1.5rem',
-    fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace',
+    lineHeight: '20px',
+    letterSpacing: '0px',
+    wordSpacing: '0px',
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    textRendering: 'optimizeSpeed' as const,
+    fontKerning: 'none' as const,
+    fontVariantLigatures: 'none' as const,
+    fontFeatureSettings: '"liga" 0, "calt" 0',
+  };
+
+  const commonStyles = {
+    ...fontSettings,
     padding: '16px',
     margin: 0,
     border: 'none',
     outline: 'none',
     tabSize: 2,
+    whiteSpace: 'pre' as const,
+    wordWrap: 'normal' as const,
+    overflowWrap: 'normal' as const,
+    boxSizing: 'border-box' as const,
   };
 
   return (
-    <div className="flex-1 overflow-hidden flex font-mono text-sm relative bg-slate-900 h-full">
+    <div className="flex-1 overflow-hidden flex font-mono text-sm relative bg-slate-900 h-full syntax-highlighter-editor">
       {/* Line Numbers */}
       <div className="w-12 bg-slate-800 text-slate-500 text-right pr-3 py-4 select-none border-r border-slate-700 shrink-0 overflow-hidden">
         {Array.from({ length: lineCount }, (_, i) => (
           <div 
             key={i} 
             style={{ 
-              lineHeight: '1.5rem', 
-              fontSize: '14px',
-              minHeight: '1.5rem'
+              ...fontSettings,
+              minHeight: '20px',
+              lineHeight: '20px'
             }}
           >
             {i + 1}
@@ -87,36 +106,48 @@ const SyntaxHighlightedEditor: React.FC<SyntaxHighlightedEditorProps> = ({
       
       {/* Editor Content */}
       <div className="flex-1 relative overflow-hidden">
-        {/* Syntax Highlighter (Always visible background) */}
+        {/* Syntax Highlighter Background */}
         <div 
           ref={highlighterRef}
-          className="absolute inset-0 overflow-auto"
-          style={{ pointerEvents: 'none' }}
+          className="absolute inset-0 overflow-auto pointer-events-none"
         >
           <SyntaxHighlighter
             language={highlighterLanguage}
             style={vscDarkPlus}
             customStyle={{
-              ...editorStyles,
+              ...commonStyles,
               background: 'transparent',
+              color: '#e2e8f0',
             }}
             showLineNumbers={false}
             wrapLines={false}
+            wrapLongLines={false}
+            PreTag="div"
+            CodeTag="div"
           >
-            {content}
+            {processedContent}
           </SyntaxHighlighter>
         </div>
 
-        {/* Transparent Textarea (Always on top for input) */}
+        {/* Textarea Overlay */}
         <textarea
           ref={textareaRef}
-          value={content}
+          value={processedContent}
           onChange={handleChange}
           onScroll={handleScroll}
           readOnly={isReadOnly}
-          className="absolute inset-0 w-full h-full resize-none bg-transparent text-transparent caret-slate-300 whitespace-pre selection:bg-blue-500/40 focus:outline-none"
-          style={editorStyles}
+          className="absolute inset-0 w-full h-full resize-none bg-transparent text-transparent caret-white selection:bg-blue-500/30 focus:outline-none overflow-auto"
+          style={{
+            ...commonStyles,
+            color: 'transparent',
+            caretColor: 'white',
+            background: 'transparent',
+          }}
           spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          wrap="off"
         />
 
         {/* Read-only indicator */}

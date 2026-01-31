@@ -5,6 +5,35 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+/* 精确的编辑器字体对齐 */
+.syntax-highlighter-editor textarea,
+.syntax-highlighter-editor pre,
+.syntax-highlighter-editor code,
+.syntax-highlighter-editor div {
+  font-family: Consolas, Monaco, "Courier New", monospace !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0px !important;
+  word-spacing: 0px !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  text-rendering: optimizeSpeed !important;
+  font-kerning: none !important;
+  font-variant-ligatures: none !important;
+  font-feature-settings: "liga" 0, "calt" 0 !important;
+}
+
+/* 强制所有语法高亮元素使用相同设置 */
+.syntax-highlighter-editor * {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+  font-weight: inherit !important;
+  font-style: inherit !important;
+}
+
 /* 自定义滚动条 */
 ::-webkit-scrollbar {
   width: 8px;
