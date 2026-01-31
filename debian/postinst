@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+# 创建系统用户
+if ! id "config-manager" &>/dev/null; then
+    useradd --system --home /opt/linux-config-manager --shell /bin/false config-manager
+fi
+
+# 设置权限
+chown -R config-manager:config-manager /opt/linux-config-manager
+chmod +x /opt/linux-config-manager/bin/config-manager-backend
+
+# 启用并启动服务
+systemctl daemon-reload
+systemctl enable linux-config-manager.service
+
+echo "Linux 配置管理器安装完成！"
+echo "使用以下命令启动服务："
+echo "  sudo systemctl start linux-config-manager"
+echo ""
+echo "访问地址: http://localhost:8080"
+
+#DEBHELPER#
+
+exit 0

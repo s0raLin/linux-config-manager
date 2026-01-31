@@ -46,20 +46,45 @@ Linux 配置管理器提供了一个类似 VSCode 的界面，让你可以轻松
 - **图标库**: Lucide React
 - **状态管理**: React Context + useReducer
 
-### 后端
+### 后端选择
+
+#### Web 版本 (Go 后端)
 - **语言**: Go 1.21+
 - **Web框架**: Gorilla Mux
 - **CORS**: rs/cors
 - **API**: RESTful API
 
+#### 桌面版本 (Tauri + Rust 后端)
+- **语言**: Rust
+- **框架**: Tauri 2.x
+- **异步运行时**: Tokio
+- **序列化**: Serde
+- **文件系统**: std::fs + dirs crate
+
 ## 📦 安装和使用
 
 ### 前置要求
 - Node.js 18+
-- Go 1.21+
 - pnpm
 
+#### Web 版本额外要求
+- Go 1.21+
+
+#### 桌面版本额外要求 (Tauri)
+- Rust 1.77.2+
+- 系统依赖（Linux）:
+  - `libwebkit2gtk-4.0-dev`
+  - `build-essential`
+  - `curl`
+  - `wget`
+  - `libssl-dev`
+  - `libgtk-3-dev`
+  - `libayatana-appindicator3-dev`
+  - `librsvg2-dev`
+
 ### 快速开始
+
+#### Web 版本 (推荐用于服务器部署)
 
 1. **克隆项目**
    ```bash
@@ -92,7 +117,45 @@ Linux 配置管理器提供了一个类似 VSCode 的界面，让你可以轻松
    - 前端界面: http://localhost:3000
    - 后端API: http://localhost:8080
 
+#### 桌面版本 (Tauri) - 推荐用于个人使用
+
+1. **克隆项目**
+   ```bash
+   git clone https://github.com/s0raLin/linux-config-manager.git
+   cd linux-config-manager
+   ```
+
+2. **安装系统依赖 (Ubuntu/Debian)**
+   ```bash
+   sudo apt update
+   sudo apt install libwebkit2gtk-4.0-dev \
+       build-essential \
+       curl \
+       wget \
+       libssl-dev \
+       libgtk-3-dev \
+       libayatana-appindicator3-dev \
+       librsvg2-dev
+   ```
+
+3. **使用启动脚本（推荐）**
+   ```bash
+   chmod +x start-tauri.sh
+   ./start-tauri.sh
+   ```
+
+4. **手动启动**
+   ```bash
+   # 安装前端依赖
+   pnpm install
+   
+   # 启动 Tauri 开发模式
+   pnpm tauri:dev
+   ```
+
 ### 构建生产版本
+
+#### Web 版本
 ```bash
 # 构建前端
 pnpm build
@@ -100,6 +163,15 @@ pnpm build
 # 构建后端
 cd backend
 go build -o config-manager main.go
+```
+
+#### 桌面版本 (Tauri)
+```bash
+# 使用构建脚本
+./build-tauri.sh
+
+# 或手动构建
+pnpm tauri:build
 ```
 
 ## 🔧 API 接口
@@ -153,3 +225,26 @@ go build -o config-manager main.go
 - [ ] 多用户支持
 - [ ] 远程服务器配置管理
 - [ ] 插件系统
+- [ ] 移动端支持 (Tauri Mobile)
+- [ ] 更多配置文件类型支持
+
+## 📋 版本对比
+
+| 特性 | Web 版本 | Tauri 桌面版本 |
+|------|----------|----------------|
+| 部署方式 | 需要后端服务器 | 独立桌面应用 |
+| 性能 | 依赖网络 | 原生性能 |
+| 文件访问 | 受限 | 完整权限 |
+| 离线使用 | 不支持 | 完全支持 |
+| 系统集成 | 有限 | 深度集成 |
+| 安装方式 | 浏览器访问 | 系统安装包 |
+| 导入/导出 | 支持 | 计划中 |
+| 多用户 | 支持 | 单用户 |
+| 远程访问 | 支持 | 不支持 |
+
+## 📚 相关文档
+
+- [Tauri 版本详细说明](./TAURI_README.md)
+- [功能特性说明](./FEATURES.md)
+- [使用指南](./USAGE_GUIDE.md)
+- [导入导出指南](./IMPORT_EXPORT_GUIDE.md)

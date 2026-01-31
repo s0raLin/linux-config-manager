@@ -1,0 +1,10 @@
+linux-config-manager (1.0.0-1) unstable; urgency=medium
+
+  * Initial release
+  * Linux 配置文件管理器
+  * 支持配置文件分类管理
+  * 现代化 Web 界面
+  * 内置编辑器和语法高亮
+  * 配置备份功能
+
+ -- Your Name <your.email@example.com>  Sat, 01 Feb 2025 00:00:00 +0800

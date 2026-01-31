@@ -87,8 +87,7 @@ const TopNavbar: React.FC = () => {
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
-      
-      alert('配置文件导出成功');
+      //导出成功
     } catch (error) {
       alert('导出失败: ' + (error instanceof Error ? error.message : '未知错误'));
     } finally {

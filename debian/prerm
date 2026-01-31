@@ -1,0 +1,16 @@
+#!/bin/bash
+set -e
+
+# 停止服务
+if systemctl is-active --quiet linux-config-manager.service; then
+    systemctl stop linux-config-manager.service
+fi
+
+# 禁用服务
+if systemctl is-enabled --quiet linux-config-manager.service; then
+    systemctl disable linux-config-manager.service
+fi
+
+#DEBHELPER#
+
+exit 0

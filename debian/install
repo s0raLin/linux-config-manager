@@ -1,0 +1,8 @@
+# 后端二进制文件
+backend/config-manager-backend opt/linux-config-manager/bin/
+
+# 前端静态文件
+dist/* opt/linux-config-manager/web/
+
+# systemd 服务文件
+debian/linux-config-manager.service lib/systemd/system/
